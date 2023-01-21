@@ -11,16 +11,17 @@ function AuthContextProvider({ children }) {
     const [userInfo, setUserInfo] = useState({})
     const [splashLoading, setSplashLoading] = useState(false)
 
-    const login = (url, name, password) => {
+    const login = (url, email, password) => {
         setIsLoading(true)
-
+        AsyncStorage.setItem("url", url)
         // axios.post('https://9g.lt/a/ap.php', {
-        axios.post(url, {
-            "name": name,
-            "pass": password,
+        axios.post(`${url}/auth/login`, {
+            "email": email,
+            "password": password,
         })
             .then(res => {
-                let userInfo = res.data;
+                let userInfo = {};
+                userInfo.token = res.data.auth.access_token;
                 console.log(userInfo)
                 setUserInfo(userInfo)
                 AsyncStorage.setItem('token', JSON.stringify(userInfo))

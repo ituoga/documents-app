@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../store/auth-context"
 import CameraButton from "../ui/cameraButton/CameraButton"
 import { GlobalStyles } from "../../constants/Styles"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const ImagePicker = ({ group_Name }) => {
 
@@ -13,8 +14,8 @@ const ImagePicker = ({ group_Name }) => {
 
     const imageHandler = async () => {
 
-        if(!documentDirection) return;
-        
+        if (!documentDirection) return;
+
         const image = await launchCameraAsync({
             aspect: [4, 3],
             quality: 1,
@@ -25,18 +26,19 @@ const ImagePicker = ({ group_Name }) => {
             return;
         } else {
             const token = userInfo.token;
+            let url = await AsyncStorage.getItem("url")
             let formData = new FormData();
-            formData.append("photoFile", {
+            formData.append("file", {
                 uri: image.uri,
                 type: "image/jpeg",
                 name: 'image.jpg',
             });
             formData.append("group_name", `${group_Name}`)
             formData.append("document_direction", `${documentDirection}`)
-            axios.post("https://9g.lt/a/ap.php", formData, {
+            axios.post(`${url}/files`, formData, {
                 headers: {
                     'content-type': `multipart/form-data;`,
-                    "Login-Token": `${token}`,
+                    "Authorization": `Bearer ${token}`,
                 },
             }).then((response) => {
                 // console.log(response);

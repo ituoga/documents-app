@@ -14,6 +14,8 @@ const Navigation = () => {
 
     const { userInfo, splashLoading } = useContext(AuthContext)
 
+    console.log(userInfo)
+
     return (
         <NavigationContainer>
             <StatusBar style="dark" />
