@@ -16,8 +16,6 @@ const HomeScreen = () => {
         setGroup_Name(GenerateRandomCode.TextCode(10))
     }
 
-    console.log(group_Name)
-
     return (
         <View style={styles.container}>
             <View style={styles.createBtn}>

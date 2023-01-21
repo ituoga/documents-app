@@ -9,6 +9,7 @@ export const AuthContext = createContext();
 function AuthContextProvider({ children }) {
     const [isLoading, setIsLoading] = useState(false)
     const [userInfo, setUserInfo] = useState({})
+    const [token, setToken] = useState({})
     const [splashLoading, setSplashLoading] = useState(false)
 
     const login = (url, email, password) => {
@@ -22,7 +23,6 @@ function AuthContextProvider({ children }) {
             .then(res => {
                 let userInfo = {};
                 userInfo.token = res.data.auth.access_token;
-                console.log(userInfo)
                 setUserInfo(userInfo)
                 AsyncStorage.setItem('token', JSON.stringify(userInfo))
                 setIsLoading(false)
@@ -54,6 +54,7 @@ function AuthContextProvider({ children }) {
 
     const value = {
         userInfo,
+        setUserInfo,
         splashLoading,
         login,
     };
