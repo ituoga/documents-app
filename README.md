@@ -19,4 +19,5 @@ Deividas Kašėta <deividas.kasetait@gmail.com> [@Deividasss](https://github.com
 
 ## Contributos 
 Deividas Kašėta <deividas.kasetait@gmail.com> [@Deividasss](https://github.com/Deividasss)
+
 Mindaugas Žvirblis <info@ituoga.lt> [@blinkinglight](https://github.com/blinkinglight)
