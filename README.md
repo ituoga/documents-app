@@ -15,7 +15,8 @@ To start project on phone you need to download Expo go and scan barcode which wi
 
 ## Author
 
-Deividas Kašėta <deividas.kasetait@gmail.com> @Deividasss
+Deividas Kašėta <deividas.kasetait@gmail.com> [@Deividasss](https://github.com/Deividasss)
 
 ## Contributos 
-Mindaugas Žvirblis <info@ituoga.lt> @blinkinglight
+Deividas Kašėta <deividas.kasetait@gmail.com> [@Deividasss](https://github.com/Deividasss)
+Mindaugas Žvirblis <info@ituoga.lt> [@blinkinglight](https://github.com/blinkinglight)
