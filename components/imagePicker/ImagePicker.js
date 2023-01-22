@@ -29,7 +29,7 @@ const ImagePicker = ({ group_Name }) => {
             let url = await AsyncStorage.getItem("url")
             let formData = new FormData();
             formData.append("file", {
-                uri: image.uri,
+                uri: image.assets[0].uri,
                 type: "image/jpeg",
                 name: 'image.jpg',
             });
