@@ -55,10 +55,10 @@ const ImagePicker = ({ group_Name }) => {
     return (
         <View style={styles.container}>
             <View style={styles.cameraButtonLeft}>
-                <CameraButton imageHandler={() => setDocumentDirection('outcoming')} />
+                <CameraButton imageHandler={() => setDocumentDirection('incoming')} />
             </View>
             <View style={styles.cameraButtonRight}>
-                <CameraButton imageHandler={() => setDocumentDirection('incoming')} />
+                <CameraButton imageHandler={() => setDocumentDirection('outcoming')} />
             </View>
         </View>
     )

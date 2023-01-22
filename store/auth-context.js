@@ -15,7 +15,6 @@ function AuthContextProvider({ children }) {
     const login = (url, email, password) => {
         setIsLoading(true)
         AsyncStorage.setItem("url", url)
-        // axios.post('https://9g.lt/a/ap.php', {
         axios.post(`${url}/auth/login`, {
             "email": email,
             "password": password,
@@ -27,7 +26,6 @@ function AuthContextProvider({ children }) {
                 AsyncStorage.setItem('token', JSON.stringify(userInfo))
                 setIsLoading(false)
             }).catch(e => {
-                console.log(`login error ${e}`)
                 setIsLoading(false)
             })
     }
@@ -41,10 +39,50 @@ function AuthContextProvider({ children }) {
             if (userInfo) {
                 setUserInfo(userInfo)
             }
+
+            const getToken = async (userInfo) => {
+                let url = await AsyncStorage.getItem("url")
+                const tok = await AsyncStorage.getItem('token');
+                const tokenInfo = JSON.parse(tok)
+                let ui = {}
+
+                if (url != null) {
+                    axios.post(`${url}/auth/refresh`, {}, {
+                        headers: {
+                            'content-type': `application/json`,
+                            'Authorization': `Bearer ${tokenInfo.token}`,
+                        },
+                    }).then((response) => {
+                        ui = {}
+                        ui.token = response.data.access_token 
+    
+                        const st = async (t) => {
+                            await AsyncStorage.setItem('token', JSON.stringify(t))
+                        }
+                        
+                        st(ui)
+                        setUserInfo(ui)
+    
+    
+                    
+                    }).catch((error) => {
+                        const st = async (t) => {
+                            await AsyncStorage.setItem('token', JSON.stringify(t))
+                        }
+                        ui = {}
+                        st(ui)
+                        setUserInfo(ui)
+                    });
+                }
+            }
+            if(userInfo) {
+                getToken(userInfo)
+            }
+
+
             setSplashLoading(false)
         } catch (e) {
             setSplashLoading(false)
-            console.log(`is logged in error ${e}`)
         }
     }
 
