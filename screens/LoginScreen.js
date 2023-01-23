@@ -17,18 +17,22 @@ const LoginScreen = () => {
                 placeholder="URL"
                 value={url}
                 onChangeText={text => setUrl(text)}
+                autoCapitalize='none'
             />
             <TextInput
                 style={styles.inputs}
                 placeholder="Prisijungimas"
                 value={user}
                 onChangeText={text => setUser(text)}
+                autoCapitalize='none'
             />
             <TextInput
                 style={styles.inputs}
                 placeholder="Slaptažodis"
                 value={password}
+                keyboardTyp='lowerCase'
                 onChangeText={text => setPassword(text)}
+                autoCapitalize='none'
             />
             <Button title="Prisijungti" onPress={() => { login(url, user, password) }} />
         </View>
