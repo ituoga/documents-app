@@ -11,8 +11,10 @@ function AuthContextProvider({ children }) {
     const [userInfo, setUserInfo] = useState({})
     const [token, setToken] = useState({})
     const [splashLoading, setSplashLoading] = useState(false)
+    const [error, setError] = useState(null)
 
     const login = (url, email, password) => {
+        setError(null)
         setIsLoading(true)
         AsyncStorage.setItem("url", url)
         axios.post(`${url}/auth/login`, {
@@ -27,6 +29,8 @@ function AuthContextProvider({ children }) {
                 setIsLoading(false)
             }).catch(e => {
                 setIsLoading(false)
+                if (e.status !== true) setError('Somenthing went wrong. Please check credentials')
+                console.log(e)
             })
     }
 
@@ -54,17 +58,17 @@ function AuthContextProvider({ children }) {
                         },
                     }).then((response) => {
                         ui = {}
-                        ui.token = response.data.access_token 
-    
+                        ui.token = response.data.access_token
+
                         const st = async (t) => {
                             await AsyncStorage.setItem('token', JSON.stringify(t))
                         }
-                        
+
                         st(ui)
                         setUserInfo(ui)
-    
-    
-                    
+
+
+
                     }).catch((error) => {
                         const st = async (t) => {
                             await AsyncStorage.setItem('token', JSON.stringify(t))
@@ -75,7 +79,7 @@ function AuthContextProvider({ children }) {
                     });
                 }
             }
-            if(userInfo) {
+            if (userInfo) {
                 getToken(userInfo)
             }
 
@@ -95,6 +99,7 @@ function AuthContextProvider({ children }) {
         setUserInfo,
         splashLoading,
         login,
+        error,
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
