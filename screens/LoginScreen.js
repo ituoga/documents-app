@@ -4,13 +4,14 @@ import { AuthContext } from "../store/auth-context"
 
 const LoginScreen = () => {
 
-    const [user, setUser] = useState(null)
-    const [password, setPassword] = useState(null)
-    const [url, setUrl] = useState(null)
-    const {login } = useContext(AuthContext)
+    const [user, setUser] = useState('')
+    const [password, setPassword] = useState('')
+    const [url, setUrl] = useState('')
+    const { login, error } = useContext(AuthContext)
 
     return (
         <View style={styles.container}>
+            {error && <Text style={styles.error}>{error}</Text>}
             <TextInput
                 style={styles.inputs}
                 placeholder="URL"
@@ -29,7 +30,7 @@ const LoginScreen = () => {
                 value={password}
                 onChangeText={text => setPassword(text)}
             />
-            <Button title="Prisijungti" onPress={() => {login(url, user, password) }} />
+            <Button title="Prisijungti" onPress={() => { login(url, user, password) }} />
         </View>
     )
 }
@@ -46,5 +47,9 @@ const styles = StyleSheet.create(({
         padding: 5,
         marginVertical: 5,
         width: "70%",
+    },
+    error: {
+        color: 'red',
+        paddingTop: 20
     }
 }))
