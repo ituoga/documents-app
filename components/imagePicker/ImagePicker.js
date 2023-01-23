@@ -45,6 +45,7 @@ const ImagePicker = ({ group_Name }) => {
             }).catch((error) => {
                 console.log(error);
             });
+	    setDocumentDirection('')
         }
     }
 
